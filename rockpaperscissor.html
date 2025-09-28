@@ -169,13 +169,18 @@
       let comp = "";
       let player = "";
 
-      function makeMove(choice) {
+
+function delay(ms){
+return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+      async function makeMove(choice) {
         player = choice;
         const computerChoice = Math.floor(Math.random() * choices.length);
         comp = choices[computerChoice];
         playerdisplay.textContent = "Player " + player;
         computer.textContent = "Thinking";
-        setTimeout(1500)
+        await delay(1500);
         computer.textContent = "Computer " + comp;
         checkWinner();
       }
