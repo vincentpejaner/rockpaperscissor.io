@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ROCK PAPER SCISSOR</title>
+    <style>
+      /* --- GLOBAL RESET & BASE STYLES --- */
+      :root {
+        --primary-color: #2a9d8f; /* Teal */
+        --accent-color: #e76f51; /* Coral */
+        --dark-bg: #264653; /* Dark Blue-Green */
+        --light-text: #f4a261; /* Light Orange */
+        --font-family: "Arial", sans-serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 20px;
+        background-color: var(--dark-bg);
+        color: white;
+        font-family: var(--font-family);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      /* --- MAIN CONTAINER LAYOUT --- */
+      .game-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px; /* Space between sections */
+        max-width: 600px;
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 2.5rem; /* Responsive font size */
+        color: var(--light-text);
+        margin-bottom: 20px;
+      }
+
+      /* --- BUTTONS SECTION --- */
+      .choice-buttons {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 450px;
+      }
+
+      .choice-buttons button {
+        /* Use relative units for responsive sizing */
+        width: 80px;
+        height: 80px;
+        font-size: 3rem; /* Large emoji size */
+        background-color: var(--primary-color);
+        color: white;
+        border: 4px solid var(--light-text);
+        border-radius: 50%; /* Make them circular */
+        cursor: pointer;
+        transition: transform 0.15s ease-in-out, background-color 0.15s;
+        padding: 0; /* Remove padding for better emoji centering */
+        line-height: 1; /* Adjust for emoji alignment */
+      }
+
+      .choice-buttons button:hover {
+        transform: scale(1.1);
+        background-color: #38b4a5;
+      }
+
+      .choice-buttons button:active {
+        transform: scale(0.95);
+      }
+
+      /* --- SCORE & RESULT DISPLAY --- */
+      .score-display,
+      .result-display {
+        background-color: #38606c;
+        padding: 15px;
+        border-radius: 10px;
+        width: 100%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .score-display {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 1.2rem;
+        margin: 5px 0;
+        padding: 0;
+      }
+
+      #draw {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--accent-color);
+        margin-top: 15px;
+      }
+
+      /* Specific score text styling */
+      #playerScore,
+      #computerScore {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--light-text);
+      }
+
+      /* --- RESPONSIVE ADJUSTMENTS (Media Queries) --- */
+
+      /* Tablet/Small Desktop */
+      @media (min-width: 480px) {
+        .choice-buttons button {
+          width: 100px;
+          height: 100px;
+          font-size: 4rem;
+        }
+
+        h1 {
+          font-size: 3rem;
+        }
+
+        p {
+          font-size: 1.4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-container">
+      <h1>ROCK PAPER SCISSORS</h1>
+
+      <div class="choice-buttons">
+        <button onclick="makeMove('✊')">✊</button>
+        <button onclick="makeMove('✋')">✋</button>
+        <button onclick="makeMove('✌')">✌</button>
+      </div>
+
+      <div class="score-display">
+        <p id="playerScore">Player 1 Score 0</p>
+        <p id="computerScore">Player 2 Score 0</p>
+      </div>
+
+      <div class="result-display">
+        <p id="player">Player 1</p>
+        <p id="computer">Player 2</p>
+        <p id="draw">Make your move!</p>
+      </div>
+    </div>
+
+    <script>
+      const choices = ["✊", "✋", "✌"];
+
+      const player = document.getElementById("player");
+      const computer = document.getElementById("computer");
+      const draw = document.getElementById("draw");
+
+      const computerScore = document.getElementById("computerScore");
+      const playerScore = document.getElementById("playerScore");
+
+      let score1 = 0;
+      let score2 = 0;
+
+      let cturn = 1;
+
+      let player1 = "";
+      let player2 = "";
+
+      function makeMove(choice) {
+        if (cturn === 1) {
+          player1 = choice;
+          console.log("Player 1" + player1);
+          player.textContent = "Player 1 " + player1;
+          cturn = 2;
+        } else {
+          player2 = choice;
+          console.log("Player 2 " + player2);
+          computer.textContent = "Player 2 " + player2;
+          checkWinner();
+        }
+      }
+
+      function checkWinner() {
+        if (player1 === player2) {
+          draw.textContent = "DRAW";
+        } else if (
+          (player1 === "✊" && player2 === "✌") ||
+          (player1 === "✌" && player2 === "✋") ||
+          (player1 === "✋" && player2 === "✊")
+        ) {
+          draw.textContent = "You win";
+          score1++;
+        } else {
+          draw.textContent = "You lose";
+          score2++;
+        }
+        
+
+        playerScore.textContent = "Player 1 Score " + score1;
+        computerScore.textContent = "Player 2 Score " + score2;
+        setTimeout(clearDisplay, 1000);
+       
+      }
+
+      function clearDisplay() {
+        document.getElementById("player").textContent = "Player 1";
+        document.getElementById("computer").textContent = "Player 2";
+        document.getElementById("draw").textContent = "Make your move";
+        cturn = 1;
+      }
+    </script>
+  </body>
+</html>

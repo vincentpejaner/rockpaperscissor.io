@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ROCK PAPER SCISSOR GAME</title>
+    <style>
+      :root {
+        --primary: #2a9d8f;
+        --accent: #e76f51;
+        --dark-bg: #264653;
+        --light-text: #f4a261;
+        --font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--dark-bg);
+        color: white;
+        font-family: var(--font);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 40px 20px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        width: 90%;
+        max-width: 400px;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: var(--light-text);
+      }
+
+      button {
+        padding: 15px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+        background: var(--primary);
+        color: white;
+      }
+
+      button:hover {
+        background: #38b4a5;
+        transform: scale(1.05);
+      }
+
+      button:active {
+        transform: scale(0.95);
+      }
+
+      /* Responsive for smaller devices */
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.6rem;
+        }
+
+        button {
+          font-size: 1rem;
+          padding: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>ROCK PAPER SCISSOR</h1>
+      <button onclick="game2()">👥 Player vs Player</button>
+      <button onclick="game1()">🤖 Player vs Computer</button>
+    </div>
+
+    <script>
+      function game1() {
+        window.location.href = "rockpaperscissor.html";
+      }
+      function game2() {
+        window.location.href = "player.html";
+      }
+    </script>
+  </body>
+</html>
